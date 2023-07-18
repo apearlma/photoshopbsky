@@ -1,0 +1,28 @@
+require_relative 'feed'
+
+class PhotoshopFeed < Feed
+  REGEXPS = [
+    /Photoshop/i, /gaussian blur/i, /\layers\b/i, /filters/i, /adjustment layers/i, /masks/, /masking/i,
+    /layer masks/i
+  ]
+
+  def feed_id
+    1
+  end
+
+  def display_name
+    "Photoshop"
+  end
+
+  def description
+    "Feed with posts about Photoshop"
+  end
+
+  def avatar_file
+    "images/photoshop.jpg"
+  end
+
+  def post_matches?(post)
+    REGEXPS.any? { |r| post.text =~ r }
+  end
+end
